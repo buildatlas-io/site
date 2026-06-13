@@ -32,7 +32,7 @@ function Button({
     "inline-flex items-center justify-center gap-[10px] min-h-[46px] px-[18px] border text-[14px] font-[560] transition-[border-color,background,transform] duration-[160ms] ease-in-out hover:-translate-y-px motion-reduce:transition-none";
 
   const primary =
-    "border-[oklch(64%_0.18_255_/_0.72)] bg-[oklch(58%_0.18_255_/_0.18)] text-[oklch(95%_0.025_255)] shadow-[0_0_0_1px_oklch(58%_0.18_255_/_0.12),0_0_46px_oklch(58%_0.18_255_/_0.12)]";
+    "border-[oklch(64%_0.18_255_/_0.72)] bg-[oklch(58%_0.18_255_/_0.18)] text-[oklch(95%_0.025_255)] shadow-[0_0_46px_oklch(58%_0.18_255_/_0.12)] ring-1 ring-[oklch(58%_0.18_255_/_0.12)]";
 
   const secondary =
     "border-[oklch(100%_0_0_/_0.15)] bg-[oklch(100%_0_0_/_0.04)] text-[oklch(88%_0.008_250)]";
@@ -184,13 +184,18 @@ export default function Home() {
             {/* Right constellation card */}
             <div
               data-reveal
-              className={`${reveal} relative min-h-[520px] max-[980px]:min-h-[420px] max-[680px]:min-h-[360px] overflow-hidden border border-[oklch(100%_0_0_/_0.1)] bg-[linear-gradient(135deg,oklch(100%_0_0_/_0.06),transparent_42%),oklch(100%_0_0_/_0.025)] shadow-[inset_0_1px_0_oklch(100%_0_0_/_0.1)]`}
+              className={`${reveal} relative min-h-[520px] max-[980px]:min-h-[420px] max-[680px]:min-h-[360px] overflow-hidden border border-[oklch(100%_0_0_/_0.1)] bg-[oklch(100%_0_0_/_0.025)] shadow-[inset_0_1px_0_oklch(100%_0_0_/_0.1)]`}
             >
-              {/* Grid overlay replaces ::before */}
+              {/* Card surface gradient (split from bg to avoid outer comma) */}
               <div
                 aria-hidden="true"
-                className="absolute inset-0 pointer-events-none opacity-[0.46] [background:linear-gradient(oklch(100%_0_0_/_0.05)_1px,transparent_1px),linear-gradient(90deg,oklch(100%_0_0_/_0.05)_1px,transparent_1px)] [background-size:44px_44px]"
+                className="absolute inset-0 pointer-events-none bg-[linear-gradient(135deg,oklch(100%_0_0_/_0.06),transparent_42%)]"
               />
+              {/* Card inner grid overlay (split into 2 single-layer divs) */}
+              <div aria-hidden="true" className="absolute inset-0 pointer-events-none opacity-[0.46]">
+                <div className="absolute inset-0 bg-[linear-gradient(oklch(100%_0_0_/_0.05)_1px,transparent_1px)] [background-size:44px_44px]" />
+                <div className="absolute inset-0 bg-[linear-gradient(90deg,oklch(100%_0_0_/_0.05)_1px,transparent_1px)] [background-size:44px_44px]" />
+              </div>
 
               <svg
                 viewBox="0 0 620 620"
@@ -293,10 +298,11 @@ export default function Home() {
                   surrendering ownership of the stack that creates it.
                 </p>
               </div>
-              {/* Manifesto pull-quote */}
-              <div className="min-h-[390px] grid content-end p-[clamp(28px,5vw,56px)] border-t lg:border-t-0 lg:border-l border-[oklch(100%_0_0_/_0.1)] [background:linear-gradient(180deg,transparent,oklch(58%_0.18_255_/_0.08)),repeating-linear-gradient(90deg,transparent_0_34px,oklch(100%_0_0_/_0.04)_34px_35px)]">
-                <span className={mono}>Manifesto line</span>
-                <strong className="block max-w-[500px] mt-[18px] font-[680] text-[clamp(28px,4.8vw,60px)] leading-[1]">
+              {/* Manifesto pull-quote (split 2-layer bg into base + overlay div) */}
+              <div className="relative min-h-[390px] grid content-end p-[clamp(28px,5vw,56px)] border-t lg:border-t-0 lg:border-l border-[oklch(100%_0_0_/_0.1)] bg-[repeating-linear-gradient(90deg,transparent_0_34px,oklch(100%_0_0_/_0.04)_34px_35px)]">
+                <div aria-hidden="true" className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,transparent,oklch(58%_0.18_255_/_0.08))]" />
+                <span className={`${mono} relative`}>Manifesto line</span>
+                <strong className="relative block max-w-[500px] mt-[18px] font-[680] text-[clamp(28px,4.8vw,60px)] leading-[1]">
                   Capability should compound in the open.
                 </strong>
               </div>
@@ -593,8 +599,10 @@ principle:
           className={`${reveal} ${sectionBorderTop} ${sectionPy}`}
         >
           <div className={shell}>
-            <div className={`${panelBorder} [background:linear-gradient(135deg,oklch(58%_0.18_255_/_0.11),transparent_38%),oklch(100%_0_0_/_0.025)]`}>
-              <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-[42px] items-end p-[clamp(34px,6vw,64px)]">
+            {/* GitHub CTA (split 2-layer bg into base + overlay div) */}
+            <div className={`relative ${panelBorder} bg-[oklch(100%_0_0_/_0.025)]`}>
+              <div aria-hidden="true" className="absolute inset-0 pointer-events-none bg-[linear-gradient(135deg,oklch(58%_0.18_255_/_0.11),transparent_38%)]" />
+              <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-[42px] items-end p-[clamp(34px,6vw,64px)]">
                 <div>
                   <div className={mono}>06 / Build in public</div>
                   <h2 className="font-sans max-w-[850px] mt-[18px] font-[680] text-[clamp(36px,6vw,82px)] leading-[0.96] tracking-normal">
@@ -616,7 +624,7 @@ principle:
               </div>
 
               {/* Metrics */}
-              <div className="grid grid-cols-1 md:grid-cols-3 border-t border-[oklch(100%_0_0_/_0.1)]">
+              <div className="relative grid grid-cols-1 md:grid-cols-3 border-t border-[oklch(100%_0_0_/_0.1)]">
                 {[
                   { value: "Public repo", label: "Source and issues" },
                   { value: "Open RFCs", label: "Architecture in daylight" },
@@ -643,7 +651,7 @@ principle:
         <section
           id="join"
           data-reveal
-          className={`${reveal} ${sectionBorderTop} min-h-[78vh] grid items-center text-center [background:radial-gradient(circle_at_50%_62%,oklch(58%_0.18_255_/_0.13),transparent_30rem)]`}
+          className={`${reveal} ${sectionBorderTop} min-h-[78vh] grid items-center text-center bg-[radial-gradient(circle_at_50%_62%,oklch(58%_0.18_255_/_0.13),transparent_30rem)]`}
         >
           <div className={shell}>
             <h2 className="font-sans max-w-[980px] mx-auto font-[700] text-[clamp(48px,9vw,124px)] leading-[0.9] tracking-normal">
