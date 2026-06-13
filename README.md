@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Atlas Site
 
-## Getting Started
+The official landing page for **Atlas**.
 
-First, run the development server:
+Atlas is building world-class open developer infrastructure that gives builders more capability, ownership, and freedom.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Mission
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Expand what's possible. Earn the world's attention.**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Vision
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Atlas starts with an open-source coding agent and grows toward a complete ecosystem of developer tools, agent runtime, memory, context engine, models, and infrastructure for the next generation of software creation.
 
-## Learn More
+## Repository Purpose
 
-To learn more about Next.js, take a look at the following resources:
+This repository contains the public website for Atlas, including:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Landing page
+- Manifesto section
+- Roadmap section
+- Project updates
+- Links to GitHub, documentation, and future community channels
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Status
 
-## Deploy on Vercel
+Atlas is currently in **Phase One**.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Phase One: Atlas Agent
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The first goal is to build a practical open-source coding agent for daily personal use, focused on:
+
+- Understanding codebases
+- Planning development tasks
+- Editing files safely
+- Running commands
+- Improving real projects
+- Creating the foundation for future open developer infrastructure
+
+## Principles
+
+- Think bigger.
+- Build world-class.
+- Own critical technology.
+- Open by default.
+- Earn attention through excellence.
+- Long-term over short-term.
+
+## Website
+
+Coming soon:
+
+**https://buildatlas.io**
+
+## License
+
+This site is released under the MIT License.
