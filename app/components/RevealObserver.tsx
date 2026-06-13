@@ -8,7 +8,7 @@ export default function RevealObserver() {
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
+            entry.target.setAttribute("data-visible", "");
             observer.unobserve(entry.target);
           }
         }
@@ -16,7 +16,9 @@ export default function RevealObserver() {
       { threshold: 0.14 }
     );
 
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    document
+      .querySelectorAll("[data-reveal]")
+      .forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
   }, []);

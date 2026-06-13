@@ -1,10 +1,21 @@
 import RevealObserver from "./components/RevealObserver";
 
-const monoLabel =
+// Tailwind class strings reused across the page
+const reveal =
+  "opacity-0 translate-y-[18px] transition-[opacity,transform] duration-700 ease-in-out motion-reduce:transition-none data-[visible]:opacity-100 data-[visible]:translate-y-0";
+
+const shell =
+  "w-[min(1180px,calc(100%-48px))] max-[680px]:w-[min(calc(100%-28px),1180px)] mx-auto";
+
+const mono =
   "font-mono text-[12px] leading-[1.4] tracking-[0.08em] uppercase text-[oklch(69%_0.02_250)]";
 
-const sectionBorder =
-  "border-t border-[oklch(100%_0_0/0.08)] py-[112px] max-[680px]:py-[76px]";
+const sectionPy = "py-[112px] max-[680px]:py-[76px]";
+const sectionBorderTop = "border-t border-[oklch(100%_0_0_/_0.08)]";
+
+const panelBg = "bg-[oklch(100%_0_0_/_0.025)]";
+const panelBorder = "border border-[oklch(100%_0_0_/_0.1)]";
+const cellBg = "bg-[oklch(100%_0_0_/_0.018)]";
 
 function Button({
   href,
@@ -17,17 +28,20 @@ function Button({
   children: React.ReactNode;
   ariaLabel?: string;
 }) {
+  const base =
+    "inline-flex items-center justify-center gap-[10px] min-h-[46px] px-[18px] border text-[14px] font-[560] transition-[border-color,background,transform] duration-[160ms] ease-in-out hover:-translate-y-px motion-reduce:transition-none";
+
+  const primary =
+    "border-[oklch(64%_0.18_255_/_0.72)] bg-[oklch(58%_0.18_255_/_0.18)] text-[oklch(95%_0.025_255)] shadow-[0_0_0_1px_oklch(58%_0.18_255_/_0.12),0_0_46px_oklch(58%_0.18_255_/_0.12)]";
+
+  const secondary =
+    "border-[oklch(100%_0_0_/_0.15)] bg-[oklch(100%_0_0_/_0.04)] text-[oklch(88%_0.008_250)]";
+
   return (
     <a
       href={href}
       aria-label={ariaLabel}
-      className={[
-        "inline-flex items-center justify-center gap-[10px] min-h-[46px] px-[18px]",
-        "border border-[oklch(100%_0_0/0.15)] text-[14px] font-[560]",
-        "transition-[border-color,background,transform] duration-[160ms] ease-in-out",
-        "hover:-translate-y-px",
-        variant === "primary" ? "btn-primary" : "btn-secondary",
-      ].join(" ")}
+      className={`${base} ${variant === "primary" ? primary : secondary}`}
     >
       {children}
     </a>
@@ -45,22 +59,12 @@ function SectionHead({
 }) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)] gap-[clamp(32px,7vw,100px)] items-start mb-14">
-      <div className={monoLabel}>{label}</div>
+      <div className={mono}>{label}</div>
       <div>
-        <h2
-          className="font-[680] leading-[0.96] tracking-normal max-w-[900px]"
-          style={{
-            fontFamily:
-              "-apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif",
-            fontSize: "clamp(34px, 5.4vw, 74px)",
-          }}
-        >
+        <h2 className="font-sans font-[680] leading-[0.96] tracking-normal max-w-[900px] text-[clamp(34px,5.4vw,74px)]">
           {heading}
         </h2>
-        <p
-          className="max-w-[760px] mt-[22px] text-[oklch(76%_0.014_250)] leading-[1.55]"
-          style={{ fontSize: "clamp(17px, 2vw, 21px)" }}
-        >
+        <p className="max-w-[760px] mt-[22px] text-[oklch(76%_0.014_250)] text-[clamp(17px,2vw,21px)] leading-[1.55]">
           {description}
         </p>
       </div>
@@ -75,18 +79,19 @@ export default function Home() {
 
       {/* ── Nav ── */}
       <nav
-        className="sticky top-0 z-20 border-b border-[oklch(100%_0_0/0.08)] backdrop-blur-[18px]"
-        style={{ background: "oklch(9% 0.015 250 / 0.78)" }}
+        className="sticky top-0 z-20 border-b border-[oklch(100%_0_0_/_0.08)] bg-[oklch(9%_0.015_250_/_0.78)] backdrop-blur-[18px]"
         aria-label="Primary navigation"
       >
-        <div className="shell flex items-center justify-between gap-6 h-[68px] max-[680px]:h-[62px]">
+        <div
+          className={`${shell} flex items-center justify-between gap-6 h-[68px] max-[680px]:h-[62px]`}
+        >
           <a
             className="inline-flex items-center gap-3 font-[650] text-[oklch(96%_0.006_250)]"
             href="#top"
             aria-label="Atlas home"
           >
             <span
-              className="brand-mark-bg size-7 grid place-items-center border border-[oklch(100%_0_0/0.18)]"
+              className="size-7 grid place-items-center border border-[oklch(100%_0_0_/_0.18)] bg-[linear-gradient(180deg,oklch(100%_0_0_/_0.08),oklch(100%_0_0_/_0.02))]"
               aria-hidden="true"
             >
               <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4">
@@ -105,10 +110,7 @@ export default function Home() {
             Atlas
           </a>
 
-          <div
-            className="inline-flex items-center gap-6 text-[13px]"
-            style={{ color: "oklch(76% 0.016 250)" }}
-          >
+          <div className="inline-flex items-center gap-6 text-[13px] text-[oklch(76%_0.016_250)]">
             <a
               href="#mission"
               className="hidden md:block transition-colors duration-[160ms] hover:text-[oklch(98%_0.004_250)]"
@@ -135,8 +137,7 @@ export default function Home() {
             </a>
             <a
               href="#join"
-              className="inline-flex items-center px-[13px] py-[9px] border border-[oklch(100%_0_0/0.16)] text-[oklch(96%_0.004_250)]"
-              style={{ background: "oklch(100% 0 0 / 0.045)" }}
+              className="inline-flex items-center px-[13px] py-[9px] border border-[oklch(100%_0_0_/_0.16)] bg-[oklch(100%_0_0_/_0.045)] text-[oklch(96%_0.004_250)]"
             >
               Join
             </a>
@@ -147,36 +148,24 @@ export default function Home() {
       <main id="top">
         {/* ── Hero ── */}
         <header
-          className="grid items-center overflow-hidden py-[92px] max-[680px]:py-[68px]"
-          style={{ minHeight: "calc(100vh - 68px)" }}
+          className="grid items-center overflow-hidden py-[92px] max-[680px]:py-[68px] min-h-[calc(100vh-68px)]"
         >
-          <div className="shell grid grid-cols-1 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)] items-center gap-[clamp(48px,7vw,104px)]">
+          <div
+            className={`${shell} grid grid-cols-1 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)] items-center gap-[clamp(48px,7vw,104px)]`}
+          >
             {/* Left copy */}
-            <div className="reveal">
-              <div className={`${monoLabel} mb-[26px]`}>
+            <div data-reveal className={reveal}>
+              <div className={`${mono} mb-[26px]`}>
                 buildatlas.io / open developer infrastructure
               </div>
-              <h1
-                className="font-[730] leading-[0.84] tracking-normal max-w-[790px]"
-                style={{
-                  fontFamily:
-                    "-apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif",
-                  fontSize: "clamp(82px, 15vw, 190px)",
-                }}
-              >
+              <h1 className="font-sans font-[730] leading-[0.84] tracking-normal max-w-[790px] text-[clamp(82px,15vw,190px)]">
                 Atlas
               </h1>
-              <p
-                className="max-w-[760px] mt-[34px] text-[oklch(82%_0.012_250)] leading-[1.12]"
-                style={{ fontSize: "clamp(23px, 3.1vw, 38px)" }}
-              >
+              <p className="max-w-[760px] mt-[34px] text-[oklch(82%_0.012_250)] text-[clamp(23px,3.1vw,38px)] leading-[1.12]">
                 Build world-class open developer infrastructure that gives
                 builders more capability, ownership, and freedom.
               </p>
-              <p
-                className="mt-[30px] font-[560] leading-[1.3] text-[oklch(96%_0.006_250)]"
-                style={{ fontSize: "clamp(18px, 2vw, 24px)" }}
-              >
+              <p className="mt-[30px] font-[560] text-[clamp(18px,2vw,24px)] leading-[1.3] text-[oklch(96%_0.006_250)]">
                 Expand what&apos;s possible. Earn the world&apos;s attention.
               </p>
               <div
@@ -194,13 +183,15 @@ export default function Home() {
 
             {/* Right constellation card */}
             <div
-              className="constellation-card reveal relative min-h-[520px] max-[980px]:min-h-[420px] max-[680px]:min-h-[360px] overflow-hidden border border-[oklch(100%_0_0/0.1)]"
-              style={{
-                background:
-                  "linear-gradient(135deg, oklch(100% 0 0 / 0.06), transparent 42%), oklch(100% 0 0 / 0.025)",
-                boxShadow: "inset 0 1px 0 oklch(100% 0 0 / 0.1)",
-              }}
+              data-reveal
+              className={`${reveal} relative min-h-[520px] max-[980px]:min-h-[420px] max-[680px]:min-h-[360px] overflow-hidden border border-[oklch(100%_0_0_/_0.1)] bg-[linear-gradient(135deg,oklch(100%_0_0_/_0.06),transparent_42%),oklch(100%_0_0_/_0.025)] shadow-[inset_0_1px_0_oklch(100%_0_0_/_0.1)]`}
             >
+              {/* Grid overlay replaces ::before */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 pointer-events-none opacity-[0.46] [background:linear-gradient(oklch(100%_0_0_/_0.05)_1px,transparent_1px),linear-gradient(90deg,oklch(100%_0_0_/_0.05)_1px,transparent_1px)] [background-size:44px_44px]"
+              />
+
               <svg
                 viewBox="0 0 620 620"
                 preserveAspectRatio="none"
@@ -246,41 +237,28 @@ export default function Home() {
 
               {/* Terminal */}
               <div
-                className="absolute left-7 right-7 bottom-7 max-[680px]:left-3.5 max-[680px]:right-3.5 max-[680px]:bottom-3.5 border border-[oklch(100%_0_0/0.12)] font-mono text-[12px] backdrop-blur-[16px]"
-                style={{
-                  background: "oklch(7% 0.014 250 / 0.86)",
-                  color: "oklch(76% 0.018 250)",
-                }}
+                className="absolute left-7 right-7 bottom-7 max-[680px]:left-3.5 max-[680px]:right-3.5 max-[680px]:bottom-3.5 border border-[oklch(100%_0_0_/_0.12)] bg-[oklch(7%_0.014_250_/_0.86)] backdrop-blur-[16px] font-mono text-[12px] text-[oklch(76%_0.018_250)]"
                 aria-label="Atlas terminal preview"
               >
-                <div
-                  className="flex justify-between px-3 py-[10px] border-b border-[oklch(100%_0_0/0.08)]"
-                  style={{ color: "oklch(66% 0.018 250)" }}
-                >
+                <div className="flex justify-between px-3 py-[10px] border-b border-[oklch(100%_0_0_/_0.08)] text-[oklch(66%_0.018_250)]">
                   <span>atlas/init</span>
                   <span>open runtime</span>
                 </div>
                 <div className="grid gap-[10px] px-3 py-[14px] pb-4">
                   {[
-                    { prompt: "$", text: "atlas agent start --repo ./infra" },
-                    {
-                      prompt: "→",
-                      text: "context loaded: repo, issues, memory, policy",
-                    },
-                    {
-                      prompt: "→",
-                      text: "planning changes across runtime, tests, docs",
-                    },
-                    { prompt: "✓", text: "builder remains in control" },
+                    { p: "$", t: "atlas agent start --repo ./infra" },
+                    { p: "→", t: "context loaded: repo, issues, memory, policy" },
+                    { p: "→", t: "planning changes across runtime, tests, docs" },
+                    { p: "✓", t: "builder remains in control" },
                   ].map((line, i) => (
                     <div
                       key={i}
                       className="flex gap-[10px] whitespace-nowrap overflow-hidden text-ellipsis"
                     >
-                      <span style={{ color: "oklch(80% 0.012 250)" }}>
-                        {line.prompt}
+                      <span className="text-[oklch(80%_0.012_250)]">
+                        {line.p}
                       </span>
-                      <span>{line.text}</span>
+                      <span>{line.t}</span>
                     </div>
                   ))}
                 </div>
@@ -290,42 +268,35 @@ export default function Home() {
         </header>
 
         {/* ── Mission ── */}
-        <section id="mission" className={`reveal ${sectionBorder}`}>
-          <div className="shell">
+        <section
+          id="mission"
+          data-reveal
+          className={`${reveal} ${sectionBorderTop} ${sectionPy}`}
+        >
+          <div className={shell}>
             <SectionHead
               label="01 / Mission"
               heading="Open infrastructure for builders who intend to own their tools."
               description="Atlas is a long-term project to make developer capability portable, inspectable, and worthy of the people building the future with it."
             />
-            <div
-              className="grid grid-cols-1 lg:grid-cols-2 border border-[oklch(100%_0_0/0.1)]"
-              style={{ background: "oklch(100% 0 0 / 0.025)" }}
-            >
+            <div className={`grid grid-cols-1 lg:grid-cols-2 ${panelBorder} ${panelBg}`}>
               <div className="p-[clamp(28px,5vw,56px)]">
-                <p
-                  className="leading-[1.55]"
-                  style={{ color: "oklch(75% 0.014 250)", fontSize: "19px" }}
-                >
+                <p className="text-[oklch(75%_0.014_250)] text-[19px] leading-[1.55]">
                   The first product is an open-source coding agent. The
                   ambition is larger: an ecosystem for runtime, memory,
                   context, models, and infrastructure that builders can study,
                   extend, and trust.
                 </p>
-                <p
-                  className="mt-6 leading-[1.55]"
-                  style={{ color: "oklch(75% 0.014 250)", fontSize: "19px" }}
-                >
+                <p className="mt-6 text-[oklch(75%_0.014_250)] text-[19px] leading-[1.55]">
                   We are not here to wrap closed systems in a friendlier
                   interface. Atlas is for teams that want leverage without
                   surrendering ownership of the stack that creates it.
                 </p>
               </div>
-              <div className="manifesto-panel min-h-[390px] grid content-end p-[clamp(28px,5vw,56px)] border-t lg:border-t-0 lg:border-l border-[oklch(100%_0_0/0.1)]">
-                <span className={monoLabel}>Manifesto line</span>
-                <strong
-                  className="block max-w-[500px] mt-[18px] font-[680] leading-[1]"
-                  style={{ fontSize: "clamp(28px, 4.8vw, 60px)" }}
-                >
+              {/* Manifesto pull-quote */}
+              <div className="min-h-[390px] grid content-end p-[clamp(28px,5vw,56px)] border-t lg:border-t-0 lg:border-l border-[oklch(100%_0_0_/_0.1)] [background:linear-gradient(180deg,transparent,oklch(58%_0.18_255_/_0.08)),repeating-linear-gradient(90deg,transparent_0_34px,oklch(100%_0_0_/_0.04)_34px_35px)]">
+                <span className={mono}>Manifesto line</span>
+                <strong className="block max-w-[500px] mt-[18px] font-[680] text-[clamp(28px,4.8vw,60px)] leading-[1]">
                   Capability should compound in the open.
                 </strong>
               </div>
@@ -334,14 +305,18 @@ export default function Home() {
         </section>
 
         {/* ── What Atlas is building ── */}
-        <section id="building" className={`reveal ${sectionBorder}`}>
-          <div className="shell">
+        <section
+          id="building"
+          data-reveal
+          className={`${reveal} ${sectionBorderTop} ${sectionPy}`}
+        >
+          <div className={shell}>
             <SectionHead
               label="02 / What Atlas is building"
               heading="A complete developer infrastructure layer, starting with the agent."
               description="Atlas is designed as a system, not a feature launch. Each layer earns its place by making builders more capable and less dependent on opaque defaults."
             />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-r-0 border-b-0 border-[oklch(100%_0_0/0.1)]">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-r-0 border-b-0 border-[oklch(100%_0_0_/_0.1)]">
               {[
                 {
                   n: "01",
@@ -376,23 +351,13 @@ export default function Home() {
               ].map((item) => (
                 <article
                   key={item.n}
-                  className="min-h-[250px] p-7 border-r border-b border-[oklch(100%_0_0/0.1)]"
-                  style={{ background: "oklch(100% 0 0 / 0.018)" }}
+                  className={`min-h-[250px] p-7 border-r border-b border-[oklch(100%_0_0_/_0.1)] ${cellBg}`}
                 >
-                  <div className={monoLabel}>{item.n}</div>
-                  <h3
-                    className="mt-[34px] font-semibold leading-[1.05] tracking-normal"
-                    style={{ fontSize: "clamp(22px, 3vw, 36px)" }}
-                  >
+                  <div className={mono}>{item.n}</div>
+                  <h3 className="mt-[34px] font-semibold text-[clamp(22px,3vw,36px)] leading-[1.05] tracking-normal">
                     {item.title}
                   </h3>
-                  <p
-                    className="mt-4 leading-[1.6]"
-                    style={{
-                      color: "oklch(72% 0.014 250)",
-                      fontSize: "15px",
-                    }}
-                  >
+                  <p className="mt-4 text-[oklch(72%_0.014_250)] text-[15px] leading-[1.6]">
                     {item.desc}
                   </p>
                 </article>
@@ -402,30 +367,26 @@ export default function Home() {
         </section>
 
         {/* ── Phase One / Agent ── */}
-        <section className={`reveal ${sectionBorder}`}>
-          <div className="shell">
+        <section
+          data-reveal
+          className={`${reveal} ${sectionBorderTop} ${sectionPy}`}
+        >
+          <div className={shell}>
             <SectionHead
               label="03 / Phase One"
               heading="The open-source coding agent is the first proof."
               description="Phase One focuses the mission into a tool developers can run, inspect, improve, and use on real repositories."
             />
             <div
-              className="grid grid-cols-1 lg:grid-cols-[0.86fr_1.14fr] border border-[oklch(100%_0_0/0.1)]"
-              style={{ background: "oklch(100% 0 0 / 0.025)" }}
+              className={`grid grid-cols-1 lg:grid-cols-[0.86fr_1.14fr] ${panelBorder} ${panelBg}`}
             >
               {/* Agent copy */}
-              <div className="p-[clamp(28px,5vw,56px)] border-b lg:border-b-0 lg:border-r border-[oklch(100%_0_0/0.1)]">
-                <div className={monoLabel}>Atlas Agent</div>
-                <h3
-                  className="mt-[30px] font-semibold leading-[1] tracking-normal"
-                  style={{ fontSize: "clamp(30px, 4vw, 52px)" }}
-                >
+              <div className="p-[clamp(28px,5vw,56px)] border-b lg:border-b-0 lg:border-r border-[oklch(100%_0_0_/_0.1)]">
+                <div className={mono}>Atlas Agent</div>
+                <h3 className="mt-[30px] font-semibold text-[clamp(30px,4vw,52px)] leading-[1] tracking-normal">
                   Serious automation. Explicit control.
                 </h3>
-                <p
-                  className="mt-5 leading-[1.55]"
-                  style={{ color: "oklch(75% 0.014 250)", fontSize: "19px" }}
-                >
+                <p className="mt-5 text-[oklch(75%_0.014_250)] text-[19px] leading-[1.55]">
                   The agent should feel like infrastructure: predictable
                   permissions, visible planning, strong context handling, and
                   clean handoff between human judgment and machine execution.
@@ -447,13 +408,9 @@ export default function Home() {
                   ].map((item) => (
                     <li
                       key={item.label}
-                      className="grid grid-cols-[92px_1fr] max-[680px]:grid-cols-1 gap-[18px] max-[680px]:gap-1.5 pt-[14px] border-t border-[oklch(100%_0_0/0.09)] text-[15px] leading-[1.55]"
-                      style={{ color: "oklch(78% 0.014 250)" }}
+                      className="grid grid-cols-[92px_1fr] max-[680px]:grid-cols-1 gap-[18px] max-[680px]:gap-1.5 pt-[14px] border-t border-[oklch(100%_0_0_/_0.09)] text-[15px] text-[oklch(78%_0.014_250)] leading-[1.55]"
                     >
-                      <span
-                        className="font-mono text-[11px] tracking-[0.08em] uppercase"
-                        style={{ color: "oklch(64% 0.018 250)" }}
-                      >
+                      <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-[oklch(64%_0.018_250)]">
                         {item.label}
                       </span>
                       {item.desc}
@@ -464,25 +421,17 @@ export default function Home() {
 
               {/* Code window */}
               <div className="p-[clamp(28px,5vw,56px)]">
-                <div
-                  className="overflow-hidden border border-[oklch(100%_0_0/0.12)] font-mono text-[13px] leading-[1.8]"
-                  style={{ background: "oklch(6.5% 0.013 250)" }}
-                >
-                  <header
-                    className="flex justify-between px-[14px] py-3 border-b border-[oklch(100%_0_0/0.1)] text-[11px] tracking-[0.08em] uppercase"
-                    style={{ color: "oklch(64% 0.02 250)" }}
-                  >
+                <div className="overflow-hidden border border-[oklch(100%_0_0_/_0.12)] bg-[oklch(6.5%_0.013_250)] font-mono text-[13px] leading-[1.8]">
+                  <header className="flex justify-between px-[14px] py-3 border-b border-[oklch(100%_0_0_/_0.1)] text-[oklch(64%_0.02_250)] text-[11px] tracking-[0.08em] uppercase">
                     <span>agent-session.yml</span>
                     <span>phase-one</span>
                   </header>
-                  <pre
-                    className="m-0 p-5 overflow-x-auto"
-                    style={{ color: "oklch(78% 0.018 250)", tabSize: 2 }}
-                  >
-                    <span style={{ color: "oklch(48% 0.016 250)" }}>
+                  <pre className="m-0 p-5 overflow-x-auto text-[oklch(78%_0.018_250)]">
+                    <span className="text-[oklch(48%_0.016_250)]">
                       mission:
-                    </span>{" "}
-                    <span style={{ color: "oklch(72% 0.016 250)" }}>
+                    </span>
+                    {" "}
+                    <span className="text-[oklch(72%_0.016_250)]">
                       expand_builder_capability
                     </span>
                     {`
@@ -508,17 +457,17 @@ principle:
         </section>
 
         {/* ── Principles ── */}
-        <section className={`reveal ${sectionBorder}`}>
-          <div className="shell">
+        <section
+          data-reveal
+          className={`${reveal} ${sectionBorderTop} ${sectionPy}`}
+        >
+          <div className={shell}>
             <SectionHead
               label="04 / Principles"
               heading="The operating system for the company is the design system for the product."
               description="Atlas should feel inevitable because the work is disciplined. These principles keep the project from drifting into spectacle."
             />
-            <div
-              className="grid grid-cols-1 md:grid-cols-2 border border-b-0 border-[oklch(100%_0_0/0.1)]"
-              style={{ borderLeft: "none" }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-2 border-r-0 border-b-0 border border-l-0 border-[oklch(100%_0_0_/_0.1)]">
               {[
                 {
                   n: "P01",
@@ -553,23 +502,13 @@ principle:
               ].map((item) => (
                 <article
                   key={item.n}
-                  className="min-h-[190px] p-7 pb-[34px] border-l border-b border-[oklch(100%_0_0/0.1)]"
-                  style={{ background: "oklch(100% 0 0 / 0.018)" }}
+                  className={`min-h-[190px] p-7 pb-[34px] border-l border-b border-[oklch(100%_0_0_/_0.1)] ${cellBg}`}
                 >
-                  <div className={monoLabel}>{item.n}</div>
-                  <h3
-                    className="mt-[34px] font-semibold leading-[1.05] tracking-normal"
-                    style={{ fontSize: "clamp(22px, 3vw, 36px)" }}
-                  >
+                  <div className={mono}>{item.n}</div>
+                  <h3 className="mt-[34px] font-semibold text-[clamp(22px,3vw,36px)] leading-[1.05] tracking-normal">
                     {item.title}
                   </h3>
-                  <p
-                    className="mt-4 leading-[1.6]"
-                    style={{
-                      color: "oklch(72% 0.014 250)",
-                      fontSize: "15px",
-                    }}
-                  >
+                  <p className="mt-4 text-[oklch(72%_0.014_250)] text-[15px] leading-[1.6]">
                     {item.desc}
                   </p>
                 </article>
@@ -579,17 +518,18 @@ principle:
         </section>
 
         {/* ── Roadmap ── */}
-        <section id="roadmap" className={`reveal ${sectionBorder}`}>
-          <div className="shell">
+        <section
+          id="roadmap"
+          data-reveal
+          className={`${reveal} ${sectionBorderTop} ${sectionPy}`}
+        >
+          <div className={shell}>
             <SectionHead
               label="05 / Roadmap"
               heading="A phased path from agent to platform."
               description="The roadmap is intentionally sequential. Each phase creates leverage for the next without pretending the whole ecosystem exists on day one."
             />
-            <div
-              className="overflow-hidden border border-[oklch(100%_0_0/0.1)]"
-              style={{ background: "oklch(100% 0 0 / 0.025)" }}
-            >
+            <div className={`overflow-hidden ${panelBorder} ${panelBg}`}>
               {[
                 {
                   phase: "Phase 1",
@@ -626,23 +566,18 @@ principle:
                   key={item.phase}
                   className={[
                     "grid grid-cols-1 md:grid-cols-[120px_1fr] lg:grid-cols-[180px_1fr_0.7fr]",
-                    "gap-[10px] md:gap-7 items-baseline px-7 py-[26px] max-[680px]:px-5 max-[680px]:py-6",
+                    "gap-[10px] md:gap-7 items-baseline",
+                    "px-7 py-[26px] max-[680px]:px-5 max-[680px]:py-6",
                     i < arr.length - 1
-                      ? "border-b border-[oklch(100%_0_0/0.09)]"
+                      ? "border-b border-[oklch(100%_0_0_/_0.09)]"
                       : "",
                   ].join(" ")}
                 >
-                  <div className={monoLabel}>{item.phase}</div>
-                  <h3 className="text-[24px] leading-[1.1] tracking-normal font-semibold">
+                  <div className={mono}>{item.phase}</div>
+                  <h3 className="text-[24px] font-semibold leading-[1.1] tracking-normal">
                     {item.title}
                   </h3>
-                  <p
-                    className="leading-[1.6]"
-                    style={{
-                      color: "oklch(72% 0.014 250)",
-                      fontSize: "15px",
-                    }}
-                  >
+                  <p className="text-[oklch(72%_0.014_250)] text-[15px] leading-[1.6]">
                     {item.desc}
                   </p>
                 </div>
@@ -652,32 +587,23 @@ principle:
         </section>
 
         {/* ── GitHub CTA ── */}
-        <section id="github" className={`reveal ${sectionBorder}`}>
-          <div className="shell">
-            <div className="github-cta-bg border border-[oklch(100%_0_0/0.1)]">
+        <section
+          id="github"
+          data-reveal
+          className={`${reveal} ${sectionBorderTop} ${sectionPy}`}
+        >
+          <div className={shell}>
+            <div className={`${panelBorder} [background:linear-gradient(135deg,oklch(58%_0.18_255_/_0.11),transparent_38%),oklch(100%_0_0_/_0.025)]`}>
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-[42px] items-end p-[clamp(34px,6vw,64px)]">
                 <div>
-                  <div className={monoLabel}>06 / Build in public</div>
-                  <h2
-                    className="max-w-[850px] mt-[18px] font-[680] leading-[0.96] tracking-normal"
-                    style={{
-                      fontFamily:
-                        "-apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif",
-                      fontSize: "clamp(36px, 6vw, 82px)",
-                    }}
-                  >
+                  <div className={mono}>06 / Build in public</div>
+                  <h2 className="font-sans max-w-[850px] mt-[18px] font-[680] text-[clamp(36px,6vw,82px)] leading-[0.96] tracking-normal">
                     Make the work visible enough to trust.
                   </h2>
-                  <p
-                    className="max-w-[720px] mt-5 leading-[1.55]"
-                    style={{
-                      color: "oklch(75% 0.014 250)",
-                      fontSize: "19px",
-                    }}
-                  >
+                  <p className="max-w-[720px] mt-5 text-[oklch(75%_0.014_250)] text-[19px] leading-[1.55]">
                     Atlas should earn contributors through substance: public
-                    code, public reasoning, clear standards, and a roadmap that
-                    serious builders can interrogate.
+                    code, public reasoning, clear standards, and a roadmap
+                    that serious builders can interrogate.
                   </p>
                 </div>
                 <Button
@@ -690,24 +616,20 @@ principle:
               </div>
 
               {/* Metrics */}
-              <div className="grid grid-cols-1 md:grid-cols-3 border-t border-[oklch(100%_0_0/0.1)]">
+              <div className="grid grid-cols-1 md:grid-cols-3 border-t border-[oklch(100%_0_0_/_0.1)]">
                 {[
                   { value: "Public repo", label: "Source and issues" },
                   { value: "Open RFCs", label: "Architecture in daylight" },
                   { value: "Maintainer-grade", label: "Docs, tests, review" },
-                ].map((m) => (
+                ].map((m, i, arr) => (
                   <div
                     key={m.label}
-                    className="p-6 border-r border-b border-[oklch(100%_0_0/0.1)] last:border-r-0"
-                    style={{ background: "oklch(100% 0 0 / 0.018)" }}
+                    className={`p-6 border-b border-[oklch(100%_0_0_/_0.1)] ${cellBg} ${i < arr.length - 1 ? "border-r" : ""}`}
                   >
                     <strong className="block text-[28px] leading-[1] font-[640]">
                       {m.value}
                     </strong>
-                    <span
-                      className="block mt-[10px] font-mono text-[11px] tracking-[0.08em] uppercase"
-                      style={{ color: "oklch(65% 0.014 250)" }}
-                    >
+                    <span className="block mt-[10px] font-mono text-[11px] tracking-[0.08em] uppercase text-[oklch(65%_0.014_250)]">
                       {m.label}
                     </span>
                   </div>
@@ -720,26 +642,17 @@ principle:
         {/* ── Final CTA ── */}
         <section
           id="join"
-          className="final-bg reveal min-h-[78vh] grid items-center text-center border-t border-[oklch(100%_0_0/0.08)]"
+          data-reveal
+          className={`${reveal} ${sectionBorderTop} min-h-[78vh] grid items-center text-center [background:radial-gradient(circle_at_50%_62%,oklch(58%_0.18_255_/_0.13),transparent_30rem)]`}
         >
-          <div className="shell">
-            <h2
-              className="max-w-[980px] mx-auto font-[700] leading-[0.9] tracking-normal"
-              style={{
-                fontFamily:
-                  "-apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif",
-                fontSize: "clamp(48px, 9vw, 124px)",
-              }}
-            >
+          <div className={shell}>
+            <h2 className="font-sans max-w-[980px] mx-auto font-[700] text-[clamp(48px,9vw,124px)] leading-[0.9] tracking-normal">
               Plant the flag. Build the stack.
             </h2>
-            <p
-              className="max-w-[680px] mx-auto mt-7 leading-[1.55]"
-              style={{ color: "oklch(75% 0.014 250)", fontSize: "19px" }}
-            >
+            <p className="max-w-[680px] mx-auto mt-7 text-[oklch(75%_0.014_250)] text-[19px] leading-[1.55]">
               Atlas is for builders who believe the next era of developer
-              infrastructure should be open, excellent, and owned by the people
-              advancing it.
+              infrastructure should be open, excellent, and owned by the
+              people advancing it.
             </p>
             <div className="flex flex-wrap gap-3 mt-[42px] justify-center">
               <Button href="mailto:mission@buildatlas.io" variant="primary">
@@ -754,11 +667,8 @@ principle:
       </main>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-[oklch(100%_0_0/0.08)] py-7">
-        <div
-          className="shell flex justify-between gap-[18px] flex-wrap font-mono text-[11px] tracking-[0.08em] uppercase"
-          style={{ color: "oklch(58% 0.014 250)" }}
-        >
+      <footer className="border-t border-[oklch(100%_0_0_/_0.08)] py-7">
+        <div className={`${shell} flex justify-between gap-[18px] flex-wrap font-mono text-[11px] tracking-[0.08em] uppercase text-[oklch(58%_0.014_250)]`}>
           <span>Atlas / buildatlas.io</span>
           <span>Open developer infrastructure</span>
         </div>
