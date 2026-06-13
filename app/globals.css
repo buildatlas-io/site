@@ -1,26 +1,123 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: oklch(8% 0.015 250);
+  color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-width: 320px;
+  color: oklch(96% 0.006 250);
+  background:
+    radial-gradient(circle at 50% -10%, oklch(28% 0.075 255 / 0.36), transparent 34rem),
+    linear-gradient(180deg, oklch(10% 0.018 250), oklch(7% 0.014 250) 58%, oklch(9% 0.013 250));
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0.42;
+  background-image:
+    linear-gradient(oklch(100% 0 0 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(100% 0 0 / 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, black, transparent 78%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.26;
+  background-image:
+    radial-gradient(circle, oklch(94% 0.02 255 / 0.8) 0 1px, transparent 1.4px),
+    radial-gradient(circle, oklch(72% 0.1 255 / 0.48) 0 1px, transparent 1.4px);
+  background-position: 11vw 15vh, 76vw 23vh;
+  background-size: 29rem 29rem, 37rem 37rem;
+}
+
+/* Centered max-width container */
+.shell {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+@media (max-width: 680px) {
+  .shell {
+    width: min(calc(100% - 28px), 1180px);
+  }
+}
+
+/* Constellation card inner grid overlay */
+.constellation-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.46;
+  background:
+    linear-gradient(oklch(100% 0 0 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(100% 0 0 / 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+}
+
+/* Manifesto panel striped gradient */
+.manifesto-panel {
+  background:
+    linear-gradient(180deg, transparent, oklch(58% 0.18 255 / 0.08)),
+    repeating-linear-gradient(90deg, transparent 0 34px, oklch(100% 0 0 / 0.04) 34px 35px);
+}
+
+/* Brand mark gradient background */
+.brand-mark-bg {
+  background: linear-gradient(180deg, oklch(100% 0 0 / 0.08), oklch(100% 0 0 / 0.02));
+}
+
+/* Primary button */
+.btn-primary {
+  border-color: oklch(64% 0.18 255 / 0.72);
+  background: oklch(58% 0.18 255 / 0.18);
+  color: oklch(95% 0.025 255);
+  box-shadow: 0 0 0 1px oklch(58% 0.18 255 / 0.12), 0 0 46px oklch(58% 0.18 255 / 0.12);
+}
+
+/* Secondary button */
+.btn-secondary {
+  background: oklch(100% 0 0 / 0.04);
+  color: oklch(88% 0.008 250);
+}
+
+/* GitHub CTA gradient */
+.github-cta-bg {
+  background:
+    linear-gradient(135deg, oklch(58% 0.18 255 / 0.11), transparent 38%),
+    oklch(100% 0 0 / 0.025);
+}
+
+/* Final section radial gradient */
+.final-bg {
+  background: radial-gradient(circle at 50% 62%, oklch(58% 0.18 255 / 0.13), transparent 30rem);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { transition: none; }
 }
