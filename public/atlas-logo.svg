@@ -1,0 +1,7 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Atlas logo</title>
+  <desc id="desc">A geometric triangular Atlas mark.</desc>
+  <rect width="96" height="96" fill="#090D14"/>
+  <path d="M48 13L83 79H13L48 13Z" stroke="#DCEBFF" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M48 33L65 70H31L48 33Z" stroke="#6EA6FF" stroke-width="5" stroke-linejoin="round"/>
+</svg>

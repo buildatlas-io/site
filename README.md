@@ -1,8 +1,20 @@
-# Atlas Site
+<p align="center">
+  <img src="./public/atlas-logo.svg" alt="Atlas logo" width="96" height="96" />
+</p>
+
+<h1 align="center">Atlas Site</h1>
 
 The official landing page for **Atlas**.
 
 Atlas is building world-class open developer infrastructure that gives builders more capability, ownership, and freedom.
+
+## Tech Stack
+
+- **Next.js** 16.2.9
+- **React** 19.2.4
+- **TypeScript**
+- **Tailwind CSS** 4
+- **ESLint** 9
 
 ## Mission
 
