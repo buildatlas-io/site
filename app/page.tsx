@@ -22,11 +22,15 @@ function Button({
   variant = "secondary",
   children,
   ariaLabel,
+  target,
+  rel,
 }: {
   href: string;
   variant?: "primary" | "secondary";
   children: React.ReactNode;
   ariaLabel?: string;
+  target?: React.HTMLAttributeAnchorTarget;
+  rel?: string;
 }) {
   const base =
     "inline-flex items-center justify-center gap-[10px] min-h-[46px] px-[18px] border text-[14px] font-[560] transition-[border-color,background,transform] duration-[160ms] ease-in-out hover:-translate-y-px motion-reduce:transition-none";
@@ -41,6 +45,8 @@ function Button({
     <a
       href={href}
       aria-label={ariaLabel}
+      target={target}
+      rel={rel}
       className={`${base} ${variant === "primary" ? primary : secondary}`}
     >
       {children}
@@ -615,9 +621,11 @@ principle:
                   </p>
                 </div>
                 <Button
-                  href="https://github.com/"
+                  href="https://github.com/buildatlas-io/atlas.git"
                   variant="primary"
                   ariaLabel="Open Atlas on GitHub"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Open GitHub
                 </Button>
